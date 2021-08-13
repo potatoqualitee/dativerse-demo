@@ -1,0 +1,13 @@
+name: Run Cross Platform Tests
+on: [push]
+defaults:
+  run:
+    shell: pwsh
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    steps:
+      - uses: actions/checkout@v2
