@@ -11,3 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: setup docker
+        run: docker pull mcr.microsoft.com/mssql/server:2019-latest 
