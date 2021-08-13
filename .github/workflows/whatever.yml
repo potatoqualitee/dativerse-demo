@@ -13,4 +13,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: setup docker
-        run: docker pull mcr.microsoft.com/mssql/server:2019-latest 
+        run: |
+          sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=dbatools.I0" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+
+      # execute sqlcmd against the container
+      - name: run tests
+        run: |
+          sqlcmd -S localhost -U sa -P dbatools.I0 -Q "SELECT 1"
