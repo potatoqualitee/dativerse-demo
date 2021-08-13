@@ -20,4 +20,4 @@ jobs:
       # execute sqlcmd against the container
       - name: run tests
         run: |
-          sqlcmd -S localhost -U sa -P dbatools.I0 -Q "SELECT 1"
+          sqlcmd -S localhost -U sa -P dbatools.I0 -Q "SELECT 1 as one"
