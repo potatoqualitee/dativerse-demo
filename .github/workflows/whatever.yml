@@ -7,17 +7,17 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      SAPASSWORD: ${{secrets.SAPASSWORD}}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: setup docker
         run: |
-          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=dbatools.I0" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$env:SAPASSWORD" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
           Start-Sleep 10
 
       # execute sqlcmd against the container
       - name: run tests
         run: |
-          sqlcmd -S localhost -U sa -P dbatools.I0 -Q "SELECT 1 as one"
+          sqlcmd -S localhost -U sa -P $env:SAPASSWORD -Q "SELECT 1 as one"
